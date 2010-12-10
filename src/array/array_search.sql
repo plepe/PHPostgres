@@ -6,7 +6,7 @@ haystack   alias for $1;
 needle     alias for $2;
 i int:=1;
 begin
-  while i<=array_count(haystack) loop
+  while i<=sizeof(haystack) loop
     if haystack[i]=needle then
       return i;
     end if;

@@ -9,7 +9,7 @@ index int:=1;
 ret   int[];
 last  int:=0;
 begin
-src=array_sort(arr);
+src=sort(arr);
 while src[index]>0
   loop
     if src[index]<>last then
@@ -34,7 +34,7 @@ ret   text[];
 ret_i int:=1;
 found bool;
 begin
-  while src_i<=array_count(src) loop
+  while src_i<=sizeof(src) loop
     ret_i:=1;
     found:=false;
 
@@ -42,7 +42,7 @@ begin
       found:=true;
     end if;
 
-    while (ret_i<=array_count(ret)) and not found loop
+    while (ret_i<=sizeof(ret)) and not found loop
       if src[src_i]=ret[ret_i] then
 	found:=true;
       end if;
