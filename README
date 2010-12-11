@@ -1,1 +1,28 @@
 This should become a repository of most of the PHP library for PostgreSQL.
+
+== Data Types ==
+There are some restrictions as php datatypes are more flexible the the
+PostgreSQL datatypes. Here are the matching postgres datatypes which will be
+used:
+
+* Numeric
+bigint ... Integer type, 8 byte
+float  ... Variable-precision, 15 decimal digits
+
+* Text
+text   ... Some text, unlimited length
+
+* Arrays
+text[]   ... Arrays of texts
+bigint[] ... Array of integers
+float[]  ... Array of numbers
+hstore   ... Associative array, keys and values are texts with a max. of 65535
+             bytes 
+
+== Notes ==
+You have to create the language plpgsql as most of the functions are using this language:
+psql -d DB -c 'create language plpgsql'
+
+The hstore module has to be loaded before loading the library. Use this on a
+current Ubuntu (10.10 Maverick Meerkat) installation:
+psql -d DB -f /usr/share/postgresql/8.4/contrib/hstore.sql
