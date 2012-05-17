@@ -2,10 +2,12 @@ json_encode - Returns the JSON representation of a hstore.
 
 DESCRIPTION
 text json_encode(hstore value)
+text json_encode(text value)
 
 PARAMETERS
 value
-  A hstore being encoded. All keys and values are handled as text values (as they are in hstore anyway).
+  hstore: A hstore being encoded. All keys and values are handled as text values (as they are in hstore anyway).
+  text: A text value being encoded. Special characters will be escaped and the value will be enclosed in ".
 
 RETURN VALUES
   Returns a JSON encoded string.
@@ -13,3 +15,6 @@ RETURN VALUES
 EXAMPLE
   select json_encode('foo=>bar, 123=>456, name=>\\"PHPostgres\\"'::hstore);
   -> {"123":"456","foo":"bar","name":"\"PHPostgres\""}
+
+  select json_encode('foobar');
+  -> "foobar"
