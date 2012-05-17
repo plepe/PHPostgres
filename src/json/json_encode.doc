@@ -3,18 +3,31 @@ json_encode - Returns the JSON representation of a hstore.
 DESCRIPTION
 text json_encode(hstore value)
 text json_encode(text value)
+text json_encode(float value)
+text json_encode(bigint value)
+text json_encode(text[] value)
+text json_encode(float[] value)
+text json_encode(bigint[] value)
 
 PARAMETERS
 value
-  hstore: A hstore being encoded. All keys and values are handled as text values (as they are in hstore anyway).
-  text: A text value being encoded. Special characters will be escaped and the value will be enclosed in ".
+* hstore: A hstore being encoded. All keys and values are handled as text values (as they are in hstore anyway).
+* text: A text value being encoded. Special characters will be escaped and the value will be enclosed in ".
+* float/bigint: A numeric value being encoded. Will be returned in a text representation of the value.
+* array: An array of types text, float or bigint.
 
 RETURN VALUES
   Returns a JSON encoded string.
 
-EXAMPLE
+EXAMPLES
   select json_encode('foo=>bar, 123=>456, name=>\\"PHPostgres\\"'::hstore);
   -> {"123":"456","foo":"bar","name":"\"PHPostgres\""}
 
   select json_encode('foobar');
   -> "foobar"
+
+  select json_encode(123.456);
+  -> 123.456
+
+  select json_encode(Array['foobar', 'bla\\nblubb']);
+  -> ["foobar","bla","bla\nblubb"]
