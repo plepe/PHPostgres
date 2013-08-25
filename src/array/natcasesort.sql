@@ -3,8 +3,8 @@ CREATE OR REPLACE FUNCTION __natcasesort_cmp (text, text)
 returns bool
 as $$
 declare
-  left	alias for $1;
-  right alias for $2;
+  "left"	alias for $1;
+  "right" alias for $2;
   l1 text;
   r1 text;
   l2 text;
@@ -12,10 +12,10 @@ declare
   ul1 text;
   ur1 text;
 begin
-  l1=substring(left  from '^([0-9]+).*$');
-  r1=substring(right from '^([0-9]+).*$');
-  l2=substring(left  from '^[0-9]+(.*)$');
-  r2=substring(right from '^[0-9]+(.*)$');
+  l1=substring("left"  from '^([0-9]+).*$');
+  r1=substring("right" from '^([0-9]+).*$');
+  l2=substring("left"  from '^[0-9]+(.*)$');
+  r2=substring("right" from '^[0-9]+(.*)$');
 
   if l1 is null then
     l1:='';
@@ -45,10 +45,10 @@ begin
     return true;
   end if;
 
-  l1=substring(left  from '^([^0-9]*)([0-9].*)?$');
-  r1=substring(right from '^([^0-9]*)([0-9].*)?$');
-  l2=substring(left  from '^[^0-9]+([0-9].*)$');
-  r2=substring(right from '^[^0-9]+([0-9].*)$');
+  l1=substring("left"  from '^([^0-9]*)([0-9].*)?$');
+  r1=substring("right" from '^([^0-9]*)([0-9].*)?$');
+  l2=substring("left"  from '^[^0-9]+([0-9].*)$');
+  r2=substring("right" from '^[^0-9]+([0-9].*)$');
   ul1=upper(l1);
   ur1=upper(r1);
 
@@ -96,7 +96,7 @@ j int:=1;
 h text;
 begin
   list=src;
-  while i<=sizeof(list) loop
+  while i<=array_upper(list, 1) loop
     j:=1;
     while j<i loop
       if __natcasesort_cmp(list[i], list[j]) then
